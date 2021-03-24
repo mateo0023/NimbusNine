@@ -4,7 +4,7 @@
   "description": "Cloud storage web app project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile:sass": "node-sass sass/main.scss public/css/style.css -w"
   },
   "author": "",
   "license": "ISC",
