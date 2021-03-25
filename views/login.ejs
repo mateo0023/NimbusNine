@@ -1,25 +1,16 @@
-<%- include('../partials/head') -%>
+<%- include('partials/head') -%>
 
-    <div class="signup">
+    <div class="login">
         <div class="gradient-circle">
         </div>
         <div class="row">
-            <div class="signup__container">
+            <div class="login__container">
                 <form action="#" class="form">
                     <div class="form__nine">
                         <p class="nine">09</p>
                     </div>
                     <div class="form__group">
-                        <h1 class="form__title">Sign Up</h1>
-                    </div>
-                    <div class="form__group">
-                        <input class="form__firstname" type="text" name="firstname" placeholder="First name">
-                    </div>
-                    <div class="form__group">
-                        <input class="form__lastname" type="text" name="lastname" placeholder="Last name">
-                    </div>
-                    <div class="form__group">
-                        <input class="form__email" type="text" name="email" placeholder="Email">
+                        <h1 class="form__title">Log In</h1>
                     </div>
                     <div class="form__group">
                         <input class="form__username" type="text" name="username" placeholder="Username">
@@ -28,11 +19,15 @@
                         <input class="form__password" type="password" name="password" placeholder="Password">
                     </div>
                     <div class="form__group">
-                        <input class="form__repeat-password" type="password" name="repeat-password" placeholder="Repeat password">
-                    </div>
-                    <div class="form__group">
                         <button class="btn btn--transparent btn--medium">Submit</button>
                     </div>
+                    <a href="/" class="form__link">
+                        <nav class="form__nav">
+                            <img src="https://img.icons8.com/ios/64/000000/circled-left-2.png"
+                                class="form__nav-arrow" />
+                            <p class="form__nav-label">Home</p>
+                        </nav>
+                    </a>
                 </form>
                 <div class="logo-box">
                     <h1 class="logo">NimbusNine</h1>
@@ -41,4 +36,4 @@
         </div>
     </div>
 
-    <%- include('../partials/footer') -%>
+    <%- include('partials/footer') -%>
