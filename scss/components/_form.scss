@@ -1,5 +1,5 @@
 .form {
-  height: 30rem;
+  min-height: 30rem;
   width: 22rem;
   padding: 3rem;
   background-color: $white;
@@ -68,4 +68,44 @@
     top: 1.5rem;
     left: 90%;
   }
+
+  &__link {
+    &:link,
+    &:visited {
+      color: $black;
+    }
+  }
+
+  &__nav {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__nav-label {
+    font-family: roboto;
+    display: inline-block;
+    margin-left: 1rem;
+    font-size: 1rem;
+  }
+
+  &__nav-arrow {
+    height: 35px;
+    width: 35px;
+    transition: transform 0.3s;
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -ms-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+  }
+
+  &__link:hover &__nav-arrow {
+    transform: translateX(-5px);
+    -webkit-transform: translateX(-5px);
+    -moz-transform: translateX(-5px);
+    -ms-transform: translateX(-5px);
+    -o-transform: translateX(-5px);
+}
 }
