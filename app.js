@@ -11,6 +11,14 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+app.get('/login', (req, res) => {
+    res.render('login/login');
+})
+
+app.get('/signup', (req, res) => {
+    res.render('signup/signup');
+})
+
 app.listen(3000, () => {
     console.log('Server is up and running');
 })

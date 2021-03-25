@@ -1,0 +1,16 @@
+.gradient-circle {
+    content: "";
+    display: table;
+    height: 59rem;
+    width: 59rem;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    position: absolute;
+    z-index: 10;
+    top: -30%;
+    left: -20%;
+    background-image: linear-gradient(to right bottom, $red-primary, $blue-primary);
+}
