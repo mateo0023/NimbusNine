@@ -12,11 +12,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    res.render('login/login');
+    res.render('login');
 })
 
 app.get('/signup', (req, res) => {
-    res.render('signup/signup');
+    res.render('signup');
 })
 
 app.listen(3000, () => {
