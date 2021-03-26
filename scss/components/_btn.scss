@@ -1,0 +1,44 @@
+.btn {
+  font-family: roboto, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  display: inline-block;
+  color: $black;
+  border: 3px solid $black;
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+
+  &:link,
+  &:visited {
+    text-decoration: none;
+  }
+
+  &--big {
+    font-size: 1.3rem;
+    padding: 0.5rem 3.5rem !important;
+  }
+
+  &--medium {
+    font-size: 1.3rem;
+    padding: 0.25rem 2rem !important;
+  }
+
+  &--transparent {
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    
+    &:hover {
+      background-color: $black;
+      color: $white;
+      border: 3px solid $black;
+    }
+  }
+}
