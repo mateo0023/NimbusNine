@@ -23,26 +23,13 @@ body {
     top: 40%;
     left: 45%; }
 
-.nine {
-  font-family: Arial, Helvetica, sans-serif;
-  font-family: roboto, sans-serif;
-  font-weight: 200;
-  font-style: normal; }
-
-.linear-gradient-background {
-  background-image: linear-gradient(to right, #64A2EB, #FA9D9D);
-  background-repeat: none; }
-
-.inline {
-  display: inline; }
-
 .btn {
   font-family: roboto, sans-serif;
   font-weight: 400;
   font-style: normal;
   display: inline-block;
   color: #000;
-  border: 3px solid #000;
+  border: 2px solid #000;
   border-radius: 50px;
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
@@ -98,16 +85,15 @@ body {
     font-style: normal;
     align-self: flex-end; }
   .form__group {
-    width: 90%;
+    width: 95%;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem; }
     .form__group input {
-      width: 100%;
       border: none;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       padding: 0.5rem 0;
-      border-bottom: 3px solid rgba(0, 0, 0, 0.3);
+      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
       transition: all 0.3s;
       -webkit-transition: all 0.3s;
       -moz-transition: all 0.3s;
@@ -115,7 +101,7 @@ body {
       -o-transition: all 0.3s; }
       .form__group input:focus, .form__group input:hover {
         outline: none;
-        border-bottom: 3px solid #000; }
+        border-bottom: 2px solid #000; }
     .form__group button {
       align-self: flex-start; }
   .form__nine {
@@ -133,7 +119,7 @@ body {
   .form__nav-label {
     font-family: roboto;
     display: inline-block;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     font-size: 1rem; }
   .form__nav-arrow {
     height: 35px;
@@ -149,6 +135,25 @@ body {
     -moz-transform: translateX(-5px);
     -ms-transform: translateX(-5px);
     -o-transform: translateX(-5px); }
+
+.alert {
+  font-family: roboto, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  margin-bottom: 2px; }
+  .alert--success {
+    background-color: rgba(46, 213, 115, 0.3); }
+  .alert--warning {
+    background-color: rgba(254, 202, 87, 0.3); }
+  .alert--error {
+    background-color: rgba(255, 71, 87, 0.3); }
 
 .row {
   max-width: 1400px;
@@ -237,3 +242,16 @@ body {
   background-color: #f2f2f2; }
   .signup__container {
     padding-top: 6rem; }
+
+.nine {
+  font-family: Arial, Helvetica, sans-serif;
+  font-family: roboto, sans-serif;
+  font-weight: 200;
+  font-style: normal; }
+
+.linear-gradient-background {
+  background-image: linear-gradient(to right, #64A2EB, #FA9D9D);
+  background-repeat: none; }
+
+.inline {
+  display: inline; }
