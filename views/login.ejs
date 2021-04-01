@@ -5,15 +5,18 @@
         </div>
         <div class="row">
             <div class="login__container">
-                <form action="#" class="form">
+                <form action="/users/login" class="form" method="POST">
                     <div class="form__nine">
                         <p class="nine">09</p>
                     </div>
                     <div class="form__group">
-                        <h1 class="form__title">Log In</h1>
+                        <h1 class="form__title">Login</h1>
                     </div>
                     <div class="form__group">
-                        <input class="form__username" type="text" name="username" placeholder="Username">
+                        <%- include('partials/messages') %>
+                    </div>
+                    <div class="form__group">
+                        <input class="form__username" type="text" name="userName" placeholder="Username">
                     </div>
                     <div class="form__group">
                         <input class="form__password" type="password" name="password" placeholder="Password">
