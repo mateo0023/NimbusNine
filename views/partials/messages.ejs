@@ -1,0 +1,26 @@
+<% if(typeof errors != 'undefined') { %>
+    <% errors.forEach(error => { %>
+        <div class="alert alert--error">
+            <p class="alert__msg"><%= error.msg %></p>
+
+        </div>
+    <% });%>
+<% } %>
+
+<% if(successMsg != '') { %>
+    <div class="alert alert--success">
+        <p class="alert__msg"><%= successMsg %></p>
+    </div>
+<% } %>
+
+<% if(errorMsg != '') { %>
+    <div class="alert alert--warning">
+        <p class="alert__msg"><%= errorMsg %></p>
+    </div>
+<% } %>
+
+<% if(loginError != '') { %>
+    <div class="alert alert--error">
+        <p class="alert__msg"><%= loginError %></p>
+    </div>
+<% } %>
