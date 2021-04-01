@@ -7,8 +7,12 @@
                     <h1 class="logo">NimbusNine</h1>
                 </div>
                 <div class="home__nav-container">
-                    <a href="/signup" class="home__link">Sign Up</a>
-                    <a href="/login" class="btn btn--transparent btn--big">Log In</a>
+                    <% if(currentUser) { %>
+                        <a href="/users/logout" class="btn btn--transparent btn--big">Log Out</a>
+                    <% } else { %>
+                        <a href="/users/signup" class="home__link">Sign Up</a>
+                        <a href="/users/login" class="btn btn--transparent btn--big">Login</a>
+                    <% } %>
                 </div>
             </div>
         </div>
