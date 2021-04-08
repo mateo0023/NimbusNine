@@ -19,9 +19,6 @@
     @include borderRadiusLeft;
   }
 
-  &__nav {
-  }
-
   &__right {
     flex: 1;
     @include borderRadiusRight;
