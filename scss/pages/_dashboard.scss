@@ -1,0 +1,26 @@
+.dash {
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    width: 96%;
+    background-color: $white;
+    height: 94%;
+    @include borderRadius;
+    @include boxShadowLg;
+    display: flex;
+  }
+
+  &__left {
+    flex: 0 0 24.125rem;
+    background-color: $grey;
+    @include borderRadiusLeft;
+  }
+
+  &__right {
+    flex: 1;
+    @include borderRadiusRight;
+  }
+}

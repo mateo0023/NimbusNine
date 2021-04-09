@@ -13,4 +13,6 @@
     top: -30%;
     left: -20%;
     background-image: linear-gradient(to right bottom, $red-primary, $blue-primary);
+    animation: spin 8s infinite linear;
+    -webkit-animation: spin 8s infinite linear;
 }

@@ -1,0 +1,31 @@
+@mixin borderRadius {
+  border-radius: 32px;
+  -webkit-border-radius: 32px;
+  -moz-border-radius: 32px;
+  -ms-border-radius: 32px;
+  -o-border-radius: 32px;
+}
+
+@mixin borderRadiusLeft {
+  border-radius: 32px 0 0 32px;
+  -webkit-border-radius: 32px 0 0 32px;
+  -moz-border-radius: 32px 0 0 32px;
+  -ms-border-radius: 32px 0 0 32px;
+  -o-border-radius: 32px 0 0 32px;
+}
+
+@mixin borderRadiusRight {
+  border-radius: 0 32px 32px 0;
+  -webkit-border-radius: 0 32px 32px 0;
+  -moz-border-radius: 0 32px 32px 0;
+  -ms-border-radius: 0 32px 32px 0;
+  -o-border-radius: 0 32px 32px 0;
+}
+
+@mixin boxShadowSm {
+  box-shadow: 2.5px 5px 7.5px rgba($black, 0.1);
+}
+
+@mixin boxShadowLg {
+  box-shadow: 5px 10px 15px rgba($black, 0.1);
+}
