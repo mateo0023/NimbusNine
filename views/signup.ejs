@@ -31,13 +31,11 @@
                             <%= (typeof userName !== 'undefined') ? `value=${userName}` : '' %> >
                     </div>
                     <div class="form__group">
-                        <input class="form__password" type="password" name="password" placeholder="Password"
-                            <%= (typeof password !== 'undefined') ? `value=${password}` : '' %> >
+                        <input class="form__password" type="password" name="password" placeholder="Password">
                     </div>
                     <div class="form__group">
                         <input class="form__repeat-password" type="password" name="repeatPassword"
-                            placeholder="Repeat password"
-                            <%= (typeof repeatPassword !== 'undefined') ? `value=${repeatPassword}` : '' %>>
+                            placeholder="Repeat password">
                     </div>
                     <div class="form__group">
                         <button class="btn btn--transparent btn--medium">Submit</button>
