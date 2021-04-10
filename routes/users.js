@@ -24,6 +24,7 @@ router.post("/signup", (req, res) => {
     password,
     repeatPassword,
   } = req.body;
+
   let errors = [];
 
   // Check required fields
