@@ -1,0 +1,16 @@
+.user {
+  &-icon {
+    display: inline-block;
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-image: url("../images/lion.jpeg");
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0.5rem 0.5rem 1rem rgba($black, 0.08);
+  }
+}
