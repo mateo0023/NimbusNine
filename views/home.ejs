@@ -3,18 +3,20 @@
     <div class="linear-gradient-background">
         <div class="home">
             <div class="row">
-                <div class="home__nav">
+                <div class="home__nav-container">
                     <div class="home__logo-box">
                         <h1 class="logo">NimbusNine</h1>
                     </div>
-                    <div class="home__nav-container">
+                    <nav class="home__nav">
                         <% if(currentUser) { %>
-                            <a href="/users/logout" class="home__link">Log Out</a>
+                            <p>Logged in as <%= currentUser.userName %></p>
+                            <a href="/users/logout" class="home__link"><div class="user-icon">
+                            </div></a>
                         <% } else { %>
                             <a href="/users/login" class="home__link">Login</a>
                             <a href="/users/signup" class="btn btn--transparent btn--big">Sign Up</a>
                         <% } %>
-                    </div>
+                    </nav>
                 </div>
             </div>
             <div class="row">
@@ -25,7 +27,7 @@
                         </div>
                         <h2 class="home__title">Cloud Storage</h2>
                         <p class="home__desc">The cloud product people love. Safe and secure, NimbusNine is easy to use.
-                            Upload, share, & collaborate.  </p>
+                            Upload, share, & collaborate. </p>
                     </div>
                 </div>
             </div>
