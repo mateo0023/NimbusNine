@@ -27,6 +27,10 @@
     font-size: 1.3rem;
     padding: 0.25rem 2rem !important;
   }
+  &--small {
+    font-size: 1.1rem;
+    padding: 0.25rem 2rem !important;
+  }
 
   &--transparent {
     transition: all 0.4s;
@@ -38,7 +42,7 @@
     &:hover {
       background-color: $black;
       color: $white;
-      border: 3px solid $black;
+      border: 2px solid $black;
     }
   }
 }
