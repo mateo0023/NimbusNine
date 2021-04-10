@@ -111,6 +111,9 @@ body {
     font-style: normal;
     align-self: flex-end; }
   .form__group {
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
     width: 95%;
     display: flex;
     flex-direction: column;
@@ -130,6 +133,12 @@ body {
         border-bottom: 2px solid #000; }
     .form__group button {
       align-self: flex-start; }
+  .form__go-away:link, .form__go-away:visited {
+    color: #64A2EB;
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none; }
   .form__nine {
     position: absolute;
     top: 1.5rem;
@@ -207,7 +216,7 @@ body {
     -o-transition: width 0.3s; }
     .search__input:focus {
       outline: none;
-      width: 15rem; }
+      width: 30rem; }
   .search__btn {
     position: absolute;
     z-index: 100;
@@ -250,8 +259,8 @@ body {
 
 .user-icon {
   display: inline-block;
-  height: 4.5rem;
-  width: 4.5rem;
+  height: 4rem;
+  width: 4rem;
   border-radius: 50%;
   margin-left: 2.5rem;
   -webkit-border-radius: 50%;
@@ -260,8 +269,7 @@ body {
   -o-border-radius: 50%;
   background-image: url("../images/lion.jpeg");
   background-position: center;
-  background-size: cover;
-  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.08); }
+  background-size: cover; }
 
 .home__nav-container {
   padding-top: 3rem;
@@ -443,8 +451,10 @@ body {
       font-size: 1rem;
       font-weight: 400;
       padding: 1rem 0;
+      color: rgba(0, 0, 0, 0.8);
       border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
       .dash__directory-list-item--title {
+        color: #000;
         border-bottom: 2px solid #000;
         font-size: 1.2rem;
         font-family: futura-pt, sans-serif;
