@@ -3,6 +3,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: roboto, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 
   &__container {
     width: 96%;
@@ -11,16 +14,146 @@
     @include borderRadius;
     @include boxShadowLg;
     display: flex;
+    color: $black;
+    overflow-y: hidden;
+    position: relative;
+  }
+
+  &__nine {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
   }
 
   &__left {
-    flex: 0 0 24.125rem;
+    flex: 0 0 20rem;
     background-color: $grey;
     @include borderRadiusLeft;
+    border-right: 0.05rem solid rgba(#959595, 0.15);
+    display: flex;
+    justify-content: center;
+  }
+
+  &__nav-container {
+    width: 95%;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+
+    &-title {
+      font-size: 2.1rem;
+      font-family: futura-pt, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid $black-2;
+      margin-bottom: 3rem;
+    }
+
+    &-link {
+      position: relative;
+      &:link,
+      &:visited {
+        color: $black;
+        font-size: 1.3rem;
+        font-weight: 400;
+        text-decoration: none;
+        padding: 0.3rem;
+        transition: all 0.2s;
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 0.5rem;
+      }
+
+      &:active,
+      &:hover {
+        color: rgba($black-2, 0.8);
+      }
+    }
   }
 
   &__right {
     flex: 1;
     @include borderRadiusRight;
+  }
+
+  &__directory {
+    padding: 2.5em 6rem 0 3rem;
+
+    &-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba($black, 0.08);
+      margin-bottom: 1rem;
+    }
+
+    &-title {
+      font-size: 2.1rem;
+      font-weight: 400;
+    }
+
+    &-top-right {
+      display: flex;
+      align-items: center;
+    }
+
+    &-bottom {
+      width: 98%;
+    }
+
+    &-list-container {
+      height: 38rem;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+    }
+
+    &-list {
+      margin-top: 0.5rem;
+    }
+
+    &-list-item {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba($black, 0.08);
+
+      &--title {
+        border-bottom: 2px solid $black;
+        font-size: 1.2rem;
+        font-family: futura-pt, sans-serif;
+        font-style: normal;
+        font-weight: 400;
+      }
+    }
+
+    &-select {
+      margin-right: 1rem;
+    }
+
+    &-list-label-container {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    &-folder-icon {
+      height: 2rem;
+      width: 2rem;
+      margin-right: 0.5rem;
+    }
   }
 }
