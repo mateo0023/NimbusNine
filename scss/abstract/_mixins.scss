@@ -1,25 +1,25 @@
 @mixin borderRadius {
-  border-radius: 32px;
-  -webkit-border-radius: 32px;
-  -moz-border-radius: 32px;
-  -ms-border-radius: 32px;
-  -o-border-radius: 32px;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
 }
 
 @mixin borderRadiusLeft {
-  border-radius: 32px 0 0 32px;
-  -webkit-border-radius: 32px 0 0 32px;
-  -moz-border-radius: 32px 0 0 32px;
-  -ms-border-radius: 32px 0 0 32px;
-  -o-border-radius: 32px 0 0 32px;
+  border-radius: 25px 0 0 25px;
+  -webkit-border-radius: 25px 0 0 25px;
+  -moz-border-radius: 25px 0 0 25px;
+  -ms-border-radius: 25px 0 0 25px;
+  -o-border-radius: 25px 0 0 25px;
 }
 
 @mixin borderRadiusRight {
-  border-radius: 0 32px 32px 0;
-  -webkit-border-radius: 0 32px 32px 0;
-  -moz-border-radius: 0 32px 32px 0;
-  -ms-border-radius: 0 32px 32px 0;
-  -o-border-radius: 0 32px 32px 0;
+  border-radius: 0 25px 25px 0;
+  -webkit-border-radius: 0 25px 25px 0;
+  -moz-border-radius: 0 25px 25px 0;
+  -ms-border-radius: 0 25px 25px 0;
+  -o-border-radius: 0 25px 25px 0;
 }
 
 @mixin boxShadowSm {
