@@ -7,6 +7,9 @@ const passport = require('passport');
 const user = require("../models/User");
 const User = require("../models/User");
 
+// Directory Model
+const TreeNode = require("../models/FileSys");
+
 router.get("/login", (req, res) => {
   res.render("login");
 });
@@ -60,10 +63,10 @@ router.post("/signup", (req, res) => {
       repeatPassword,
     });
   } else {
-    User.findOne({ email: email }).then((user) => {
+    User.findOne({ $or: [{email: email}, {userName: userName}] }).then((user) => {
       if (user) {
         // User exists
-        errors.push({ msg: "Email is already registered" });
+        errors.push({ msg: "Email and useraname combination not available" });
         res.render("signup", {
           errors,
           firstName,
@@ -102,6 +105,14 @@ router.post("/signup", (req, res) => {
               });
           })
         );
+
+        // Create a new root folder
+        const newRootDir = new TreeNode({
+          isFolder: true,
+          name: "~",
+          owner: newUser._id,
+        });
+        newRootDir.save()
       }
     });
   }
