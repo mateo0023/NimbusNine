@@ -15,17 +15,11 @@ module.exports = function (options) {
     const { MongoURI } = options;
     const connection = mongoose
         .createConnection(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    const db = connection.db;
 
-    let db, gfs;
-    
     // Create GridFS-stream
-    connection.open(function (err) {
-        if (err) return handleError(err);
-        
-        db = connection.db;
-        gfs = Grid(connection, mongoose.mongo);
-        gfs.collection('uploads');
-    });
+    const gfs = Grid(connection, mongoose.mongo);
+    gfs.collection('uploads');
 
     // Storage Engine
     const storage = new GridFsStorage({
@@ -126,8 +120,8 @@ module.exports = function (options) {
             db.treenodes.findOne(
                 { parent: req.params.folderId, _id: req.params.fileId },
                 (err, node) => {
-                    if(err) res.send(err);
-                    
+                    if (err) res.send(err);
+
                     // Will want to change this so that it actually downloads the file
                     const readstream = gfs.createReadStream({ _id: node.fileId });
                     readstream.pipe(res);
@@ -139,17 +133,17 @@ module.exports = function (options) {
         ensureAuthenticated, checkCampgroundOwnership,
         (req, res) => {
             db.treenodes.find({ parent: req.params.folderId })
-                .sort( { isFolder: 1, name: 1, _id: 1 } )
-                .toArray( (err, items) => {
-                    if(err) res.send(err);
+                .sort({ isFolder: 1, name: 1, _id: 1 })
+                .toArray((err, items) => {
+                    if (err) res.send(err);
 
-                    if (!items || items.length === 0){
+                    if (!items || items.length === 0) {
                         res.render('dashboard/dashboard', {
-                          items: false,
-                          userName: req.user.userName,
+                            items: false,
+                            userName: req.user.userName,
                         });
-                      }
-                
+                    }
+
                     res.render('dashboard/dashboard', {
                         items: items,
                         userName: req.user.userName,
