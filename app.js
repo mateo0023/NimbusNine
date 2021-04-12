@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 const indexRoutes = require("./routes/index");
 const userRoutes = require("./routes/users");
 const flash = require('connect-flash');
