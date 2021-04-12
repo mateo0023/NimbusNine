@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="https://use.typekit.net/qkm6eze.css">
     <link rel="stylesheet" href="https://use.typekit.net/hzp0fta.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <% if(scripts && scripts.length > 0) { %>
+        <% for(let i=0; i < scripts.length; i++) { %>
+            <script src="<%= scripts[i].url %>" <%= scripts[i].defer %>></script>
+        <% } %> 
+    <% } %>
     <script src="/js/script.js" defer></script>
     <title>Nimbus Nine</title>
 </head>
