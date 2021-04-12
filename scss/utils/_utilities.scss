@@ -1,22 +1,27 @@
 .nine {
-    font-family: Arial, Helvetica, sans-serif;
-    font-family: roboto, sans-serif;
-    font-weight: 200;
-    font-style: normal;
+  font-family: Arial, Helvetica, sans-serif;
+  font-family: roboto, sans-serif;
+  font-weight: 200;
+  font-style: normal;
 }
 
 .linear-gradient-background {
-    background-image: linear-gradient(to right, $blue-primary, $red-primary);
-    background-repeat: none;
-    height: 100vh;
-    width: 100%;
-    position: absolute;
+  background-image: linear-gradient(to right, $blue-primary, $red-primary);
+  background-repeat: none;
+  height: 100vh;
+  width: 100vw;
 }
 
 .inline {
-    display: inline;
+  display: inline;
 }
 
 .hidden {
-    visibility: hidden;
+  visibility: hidden;
 }
+
+.show {
+  display: block;
+}
+
+
