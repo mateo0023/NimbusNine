@@ -7,20 +7,8 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 
-
 // Passport config
 require('./config/passport')(passport);
-
-// DB config
-// const { MongoURI } = require("./config/keys");
-
-// Connect to Mongo
-// mongoose
-//   .connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => {
-//     console.log("Connected to MongoDB");
-//   })
-//   .catch((err) => console.log(err));
 
 // Setting view engine to ejs
 app.set("view engine", "ejs");
