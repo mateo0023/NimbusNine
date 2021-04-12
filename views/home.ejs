@@ -9,13 +9,16 @@
                     </div>
                     <nav class="home__nav">
                         <% if(currentUser) { %>
-                            <p>Logged in as <%= currentUser.userName %></p>
-                            <a href="/users/logout" class="home__link"><div class="user-icon">
-                            </div></a>
-                        <% } else { %>
-                            <a href="/users/login" class="home__link">Login</a>
-                            <a href="/users/signup" class="btn btn--transparent btn--big">Sign Up</a>
-                        <% } %>
+                            <p>Logged in as <%= currentUser.userName %>
+                            </p>
+                            <div class="drop-down-container"><a href="/users/logout" class="home__link">
+                                    <div class="user-icon">
+                                    </div>
+                                </a></div>
+                            <% } else { %>
+                                <a href="/users/login" class="home__link">Login</a>
+                                <a href="/users/signup" class="btn btn--transparent btn--big">Sign Up</a>
+                                <% } %>
                     </nav>
                 </div>
             </div>
