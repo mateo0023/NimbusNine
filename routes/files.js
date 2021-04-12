@@ -77,7 +77,7 @@ module.exports = function (options) {
                 { _id: folderId },
                 { $addToSet: { children: newNode._id } }
             );
-            res.redirect(`/${folderId}`);
+            res.render("partials/item_list");
         });
 
     router.post("/newFolder/:parentId", ensureAuthenticated, checkCampgroundOwnership, (req, res) => {

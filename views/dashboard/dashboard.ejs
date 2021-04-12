@@ -1,4 +1,9 @@
-<%- include('../partials/head') %>
+<%- include('../partials/head', {scripts: [
+    {
+        url: "https://unpkg.com/axios/dist/axios.min.js",
+        defer: ""
+    }
+    ]}) %>
 
     <div class="linear-gradient-background">
         <div class="dash">
@@ -54,8 +59,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <%- include('item_list', {items: items}); %>
+
+                    <%- include('../partials/item_list', {items: items}); %>
                 </div>
             </div>
         </div>
