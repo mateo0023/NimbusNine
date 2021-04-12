@@ -1,5 +1,3 @@
-const { db } = require("../models/FileSys");
-
 // Need to get a database and GridFsStorage
 module.exports = function (options) {
     const express = require("express");
@@ -18,11 +16,14 @@ module.exports = function (options) {
     const connection = mongoose
         .createConnection(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+    let db, gfs;
+    
     // Create GridFS-stream
     connection.open(function (err) {
         if (err) return handleError(err);
-
-        var gfs = Grid(connection, mongoose.mongo);
+        
+        db = connection.db;
+        gfs = Grid(connection, mongoose.mongo);
         gfs.collection('uploads');
     });
 

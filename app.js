@@ -60,7 +60,7 @@ app.use("/", indexRoutes);
 app.use("/users", userRoutes);
 
 // File Upload-Download operations
-app.use("/files", require('./routes/files')());
+app.use("/files", require('./routes/files')({ MongoURI: MongoURI }));
 
 app.listen(3000, () => {
   console.log("Server is up and running");
