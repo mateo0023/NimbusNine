@@ -6,17 +6,21 @@ const userRoutes = require("./routes/users");
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
 
 // Passport config
 require('./config/passport')(passport);
 
 // DB config
-const db = require("./config/keys").MongoURI;
+const { MongoURI } = require("./config/keys");
 
 // Connect to Mongo
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
+  .connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
   .catch((err) => console.log(err));
 
 // Setting view engine to ejs
@@ -50,10 +54,13 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // Routes
 app.use("/", indexRoutes);
 app.use("/users", userRoutes);
 
+// File Upload-Download operations
+app.use("/files", require('./routes/files')({ MongoURI: MongoURI }));
 
 app.listen(3000, () => {
   console.log("Server is up and running");

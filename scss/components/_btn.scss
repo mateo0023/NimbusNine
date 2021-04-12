@@ -4,7 +4,7 @@
   font-style: normal;
   display: inline-block;
   color: $black;
-  border: 2px solid $black;
+  border: 1px solid $black !important;
   border-radius: 50px;
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
@@ -17,10 +17,9 @@
   &:visited {
     text-decoration: none;
   }
-
   &--big {
     font-size: 1.3rem;
-    padding: 0.5rem 3.5rem !important;
+    padding: 0.5rem 2.5rem !important;
   }
 
   &--medium {
@@ -29,7 +28,13 @@
   }
   &--small {
     font-size: 1.1rem;
-    padding: 0.25rem 2rem !important;
+    padding: 0.25rem 1rem !important;
+  }
+
+  &--primary {
+    color: $white;
+    background-color: $blue;
+    border: 1px solid $blue;
   }
 
   &--transparent {
@@ -38,11 +43,11 @@
     -moz-transition: all 0.4s;
     -ms-transition: all 0.4s;
     -o-transition: all 0.4s;
-    
+
     &:hover {
       background-color: $black;
       color: $white;
-      border: 2px solid $black;
+      border: 1px solid $black;
     }
   }
 }
