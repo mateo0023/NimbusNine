@@ -54,32 +54,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="dash__directory-list">
-                        <% if(items){ %>
-                            <% for(let i=0; i<items.length; i++){ %>
-                                <% let curr_item = items[i]; %> 
-                                <div class="dash__directory-list-item" name="<%= curr_item._id %> ">
-                                    <input class="dash__directory-select hidden" type="checkbox">
-                                    <div
-                                        class="dash__directory-list-label-container dash__directory-list-label-container--name">
-                                        <img class="dash__directory-folder-icon" 
-                                            src=<%= (curr_item.isFolder) ? "../images/folder.png" : "../images/folder copy.png" %>
-                                            alt="folder icon">
-                                        <p class="dash__directory-list-label"><%= curr_item.name %> </p>
-                                    </div>
-                                    <div class="dash__directory-list-label-container">
-                                        <p class="dash__directory-list-label">
-                                            <%= (curr_item.isFolder) ? "" : "null" %>
-                                        </p>
-                                    </div>
-                                    <div class="dash__directory-list-label-container">
-                                        <p class="dash__directory-list-label">2/14/2021 12:38 pm</p>
-                                    </div>
-                                </div>
-                            <% } %>
-                        <% } %>
-
-                    </div>
+                    
+                    <%- include('item_list', {items: items}); %>
                 </div>
             </div>
         </div>
