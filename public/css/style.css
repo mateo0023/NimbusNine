@@ -477,12 +477,13 @@ body {
     display: flex;
     flex-direction: column; }
     .dash__directory-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      width: 97%;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      margin-bottom: 1rem; }
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
     .dash__directory-title {
       font-size: 1.8rem;
       font-weight: 400; }
@@ -552,5 +553,5 @@ body {
 .hidden {
   visibility: hidden; }
 
-.none {
-  display: none; }
+.show {
+  display: block; }
