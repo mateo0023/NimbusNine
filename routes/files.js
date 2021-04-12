@@ -8,22 +8,13 @@ module.exports = function (options) {
     const path = require("path");
     const multer = require("multer");
     const GridFsStorage = require("multer-gridfs-storage");
-    const Grid = require('gridfs-stream');
+    const { db, gfs } = require("../config/mongodb");
 
     const TreeNode = require("../models/FileSys");
 
-    const { MongoURI } = options;
-    const connection = mongoose
-        .createConnection(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-    const db = connection.db;
-
-    // Create GridFS-stream
-    const gfs = Grid(connection, mongoose.mongo);
-    gfs.collection('uploads');
-
     // Storage Engine
     const storage = new GridFsStorage({
-        db: connection,
+        db: db,
         file: (req, file) => {
 
             return new Promise((resolve, reject) => {
@@ -132,23 +123,36 @@ module.exports = function (options) {
     router.get("/:folderId",
         ensureAuthenticated, checkCampgroundOwnership,
         (req, res) => {
-            db.treenodes.find({ parent: req.params.folderId })
-                .sort({ isFolder: 1, name: 1, _id: 1 })
-                .toArray((err, items) => {
-                    if (err) res.send(err);
+            db.collection("treenodes").findOne({ _id: req.params.folderId }, (err, result) => {
+                if(!result.isFolder) {
+                    // Redirect if it's a file
+                    res.redirect(`/${result.parent}/${result._id}`)
+                } else {
+                    db.collection("treenodes").find({ parent: req.params.folderId })
+                        .sort({ isFolder: 1, name: 1, _id: 1 })
+                        .toArray((err, items) => {
+                            // If there was an error: send it
+                            if (err) res.send(err);
+        
+                            else if (!items || items.length === 0) {
+                                // Empty dashboard
+                                res.render('dashboard/dashboard', {
+                                    items: false,
+                                    userName: req.user.userName,
+                                });
+                            }
+                            else {
+                                // Show all the items
+                                res.render('dashboard/dashboard', {
+                                    items: items,
+                                    userName: req.user.userName,
+                                });
+                            }
+        
+                        })
+                }
+            });
 
-                    if (!items || items.length === 0) {
-                        res.render('dashboard/dashboard', {
-                            items: false,
-                            userName: req.user.userName,
-                        });
-                    }
-
-                    res.render('dashboard/dashboard', {
-                        items: items,
-                        userName: req.user.userName,
-                    });
-                })
         })
     return router
 };

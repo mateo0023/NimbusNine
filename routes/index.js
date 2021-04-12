@@ -3,14 +3,7 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const mongoose = require("mongoose");
 
-mongoose.connect(require("../config/keys").MongoURI,
-  { useNewUrlParser: true, useUnifiedTopology: true });
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log("Connected on index.js")
-});
+const { db } = require("../config/mongodb")
 
 // Home page
 router.get("/", (req, res) => {
@@ -23,19 +16,24 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => {
   db.collection("treenodes").find({ owner: req.user._id, name: '~' })
     .sort({ isFolder: 1, name: 1, _id: 1 })
     .toArray((err, items) => {
-      if (err) res.send(err);
+      if (err) {
+        res.json({
+          "error": err,
+        });
+      }
 
       if (!items || items.length === 0) {
         res.render('dashboard/dashboard', {
           items: false,
           userName: req.user.userName,
         });
+      } else {
+        res.render('dashboard/dashboard', {
+          items: items,
+          userName: req.user.userName,
+        });
       }
-
-      res.render('dashboard/dashboard', {
-        items: items,
-        userName: req.user.userName,
-      });
+      
     })
 })
 
