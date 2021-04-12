@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const mongoose = require("mongoose");
+<<<<<<< HEAD
 
 mongoose.connect(require("../config/keys").MongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true });
@@ -11,7 +12,13 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   console
 });
+=======
+const { MongoURI } = require("../config/keys");
+>>>>>>> 3381799af6a4efb52c67a90e56282d8005168048
 
+const connection = mongoose
+        .createConnection(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    const db = connection.db;
 // Home page
 router.get("/", (req, res) => {
   res.render("home");
