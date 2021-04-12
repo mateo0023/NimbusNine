@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
+const mongoose = require("mongoose");
+const { MongoURI } = require("../config/keys");
 
+const connection = mongoose
+        .createConnection(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    const db = connection.db;
 // Home page
 router.get("/", (req, res) => {
   res.render("home");
