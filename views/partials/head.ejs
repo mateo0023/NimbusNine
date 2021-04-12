@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/hzp0fta.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 
-    <% if(scripts && scripts.length > 0) { %>
+    <% if(typeof scripts !== 'undefined') { %>
         <% for(let i=0; i < scripts.length; i++) { %>
             <script src="<%= scripts[i].url %>" <%= scripts[i].defer %>></script>
         <% } %> 
