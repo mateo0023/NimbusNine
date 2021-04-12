@@ -12,9 +12,6 @@ db.once('open', function () {
   console.log("Connected on index.js")
 });
 
-const connection = mongoose
-        .createConnection(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-    const db = connection.db;
 // Home page
 router.get("/", (req, res) => {
   res.render("home");
