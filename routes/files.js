@@ -77,6 +77,7 @@ module.exports = function (options) {
                 { _id: folderId },
                 { $addToSet: { children: newNode._id } }
             );
+            res.redirect(`/${folderId}`);
         });
 
     router.post("/newFolder/:parentId", ensureAuthenticated, checkCampgroundOwnership, (req, res) => {
@@ -96,6 +97,7 @@ module.exports = function (options) {
             { _id: parentId },
             { $addToSet: { children: newFolder._id } }
         );
+        res.redirect(`/${newFolder._id}`);
     })
 
     router.delete("/remove/:itemId",
