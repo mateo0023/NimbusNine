@@ -1,5 +1,7 @@
+const { db } = require("../models/FileSys");
+
 // Need to get a database and GridFsStorage
-module.exports = function (db, gfs) {
+module.exports = function (options) {
     const express = require("express");
     const router = express.Router();
     const { ensureAuthenticated, checkCampgroundOwnership } = require('../config/auth');
@@ -8,12 +10,25 @@ module.exports = function (db, gfs) {
     const path = require("path");
     const multer = require("multer");
     const GridFsStorage = require("multer-gridfs-storage");
+    const Grid = require('gridfs-stream');
 
-    const TreeNode = require("../models/FileSys");;
+    const TreeNode = require("../models/FileSys");
+
+    const { MongoURI } = options;
+    const connection = mongoose
+        .createConnection(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    // Create GridFS-stream
+    connection.open(function (err) {
+        if (err) return handleError(err);
+
+        var gfs = Grid(connection, mongoose.mongo);
+        gfs.collection('uploads');
+    });
 
     // Storage Engine
     const storage = new GridFsStorage({
-        url: require("./config/keys").MongoURI,
+        db: connection,
         file: (req, file) => {
 
             return new Promise((resolve, reject) => {
@@ -38,7 +53,7 @@ module.exports = function (db, gfs) {
             if (!err) {
                 // Remove from parent
                 db.treenodes.update({ _id: elem.parent }, { $pull: { children: elem._id } });
-                
+
                 if (elem.isFolder) {
                     idsToRemove = elem.children;
                     if (idsToRemove !== null ||
@@ -104,5 +119,41 @@ module.exports = function (db, gfs) {
         });
 
 
+    router.get("/:folderId/:fileId",
+        ensureAuthenticated, checkCampgroundOwnership,
+        (req, res) => {
+            db.treenodes.findOne(
+                { parent: req.params.folderId, _id: req.params.fileId },
+                (err, node) => {
+                    if(err) res.send(err);
+                    
+                    // Will want to change this so that it actually downloads the file
+                    const readstream = gfs.createReadStream({ _id: node.fileId });
+                    readstream.pipe(res);
+                }
+            )
+        });
+
+    router.get("/:folderId",
+        ensureAuthenticated, checkCampgroundOwnership,
+        (req, res) => {
+            db.treenodes.find({ parent: req.params.folderId })
+                .sort( { isFolder: 1, name: 1, _id: 1 } )
+                .toArray( (err, items) => {
+                    if(err) res.send(err);
+
+                    if (!items || items.length === 0){
+                        res.render('dashboard/dashboard', {
+                          items: false,
+                          userName: req.user.userName,
+                        });
+                      }
+                
+                    res.render('dashboard/dashboard', {
+                        items: items,
+                        userName: req.user.userName,
+                    });
+                })
+        })
     return router
 };

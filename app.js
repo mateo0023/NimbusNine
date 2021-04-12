@@ -13,17 +13,13 @@ const Grid = require('gridfs-stream');
 require('./config/passport')(passport);
 
 // DB config
-const MongoURI = require("./config/keys").MongoURI;
-
-let gfs;
+const { MongoURI } = require("./config/keys");
 
 // Connect to Mongo
 mongoose
   .connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected to MongoDB");
-    gfs = Grid(mongoose.connection.db, mongoose.mongo);
-    gfs.collection('uploads');
   })
   .catch((err) => console.log(err));
 
@@ -63,8 +59,8 @@ app.use((req, res, next) => {
 app.use("/", indexRoutes);
 app.use("/users", userRoutes);
 
-// Is this the right way?
-app.use("/files", require('./routes/files')(mongoose.connection.db, gfs));
+// File Upload-Download operations
+app.use("/files", require('./routes/files')());
 
 app.listen(3000, () => {
   console.log("Server is up and running");
