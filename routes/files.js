@@ -151,8 +151,11 @@ router.post("/newFolder/:parentId", ensureAuthenticated, (req, res) => {
             TreeNode.findOneAndUpdate(
                 { _id: parentId },
                 { $addToSet: { children: newFolder._id } }
-            );
-            res.send(newFolder._id);
+            ).exec(
+                () => {
+                    res.send(newFolder._id);
+                }
+            )
         }
     )
 })
@@ -172,12 +175,12 @@ router.get("/view/:folderId/:fileId",
             (err, node) => {
                 if (err) return res.status(400).send(err);
                 // Will want to change this so that it actually downloads the file
-                
+
                 res.set('Content-Type', node.contentType);
                 res.set('Content-Disposition', `attachment; filename="${node.name}"`);
-                
+
                 const readstream = gfs.createReadStream({ _id: node.fileId });
-                readstream.on("error", function(err) { 
+                readstream.on("error", function (err) {
                     res.end();
                 });
                 readstream.pipe(res);
@@ -193,7 +196,7 @@ router.get("/view/:folderId",
             if (!result.isFolder) {
                 // Redirect if it's a file
                 res.redirect(`/view/${result.parent}/${result._id}`)
-            } else if (result.name === "~"){
+            } else if (result.name === "~") {
                 res.redirect("/dashboard");
             } else {
                 TreeNode.find(
