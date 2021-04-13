@@ -8,11 +8,11 @@ mongoose.connect(MongoURI,
     .catch((err) => console.log(err));
 
 const db = mongoose.connection;
-let gfs;
+var gfs;
 db.once('open', () => {
     console.log("Connected to MongoDB");
 
-    gfs = Grid(db, mongoose.mongo);
+    gfs = Grid(db.db, mongoose.mongo);
     gfs.collection('uploads');
 });
 

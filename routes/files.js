@@ -1,5 +1,3 @@
-// Need to get a database and GridFsStorage
-
 const express = require("express");
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
@@ -8,7 +6,22 @@ const crypto = require("crypto");
 const path = require("path");
 const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
-const { db, gfs } = require("../config/mongodb");
+const Grid = require('gridfs-stream');
+
+const { MongoURI } = require("../config/keys");
+
+mongoose.connect(MongoURI,
+    { useNewUrlParser: true, useUnifiedTopology: true, dbName: "users" })
+    .catch((err) => console.log(err));
+
+const db = mongoose.connection;
+var gfs;
+db.once('open', () => {
+    console.log("Connected to MongoDB");
+
+    gfs = Grid(db.db, mongoose.mongo);
+    gfs.collection('uploads');
+});
 
 const TreeNode = require("../models/FileSys");
 
@@ -65,7 +78,6 @@ router.post("/upload/:folderId",
         const userId = req.user._id;
         const folderId = req.params.folderId;
         const promises = []
-        console.log("Something")
         req.files.forEach(file => {
             const newNode = new TreeNode({
                 isFolder: false,
@@ -76,10 +88,7 @@ router.post("/upload/:folderId",
                 size: file.size,
                 date: file.uploadDate,
             });
-            console.log(file.originalname);
             promises.push(newNode.save());
-
-            console.log(`{ _id: ${folderId} } child: { _id: ${newNode._id} }`)
 
             promises.push(
                 TreeNode.update(
@@ -155,26 +164,32 @@ router.delete("/remove/:itemId",
     });
 
 
-// router.get("/view/:folderId/:fileId",
-//     ensureAuthenticated,
-//     (req, res) => {
-//         console.log(req.params.folderId, req.params.fileId)
-//         TreeNode.findOne(
-//             { parent: req.params.folderId, _id: req.params.fileId },
-//             (err, node) => {
-//                 if (err) res.send(err);
-//                 console.log(node)
-//                 // Will want to change this so that it actually downloads the file
-//                 const readstream = gfs.createReadStream({ _id: node.fileId });
-//                 readstream.pipe(res);
-//             }
-//         )
-//     });
+router.get("/view/:folderId/:fileId",
+    ensureAuthenticated,
+    (req, res) => {
+        TreeNode.findOne(
+            { parent: req.params.folderId, _id: req.params.fileId },
+            (err, node) => {
+                if (err) return res.status(400).send(err);
+                // Will want to change this so that it actually downloads the file
+                
+                res.set('Content-Type', node.contentType);
+                res.set('Content-Disposition', `attachment; filename="${node.name}"`);
+                
+                const readstream = gfs.createReadStream({ _id: node.fileId });
+                readstream.on("error", function(err) { 
+                    res.end();
+                });
+                readstream.pipe(res);
+            }
+        )
+    });
 
 router.get("/view/:folderId",
     ensureAuthenticated,
     (req, res) => {
         TreeNode.findOne({ _id: req.params.folderId }, (err, result) => {
+            if (err) return res.status(400).send(err);
             if (!result.isFolder) {
                 // Redirect if it's a file
                 res.redirect(`/view/${result.parent}/${result._id}`)
