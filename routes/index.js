@@ -18,7 +18,6 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => {
     { "owner": req.user._id, "name": '~' },
     (err, root) => {
       rootId = root._id;
-      console.log(root.children)
       if (root.children.length === 0) {
         res.render('dashboard/dashboard', {
           items: false,
@@ -39,7 +38,7 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => {
                   res.render("dashboard/dashboard", {
                       items: items,
                       userName: req.user.userName,
-                      parent: req.params.folderId
+                      parent: rootId
                   })
               }
           })

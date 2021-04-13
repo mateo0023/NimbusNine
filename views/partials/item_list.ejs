@@ -1,26 +1,40 @@
-    <% if(items){ %>
-        <% for(let i=0; i<items.length; i++){ %>
-            <% let curr_item = items[i]; %> 
-            <div class="dash__directory-list-item"
-                id="<%= curr_item._id %>">
-                <input class="dash__directory-select hidden" type="checkbox">
-                <div
-                    class="dash__directory-list-label-container dash__directory-list-label-container--name">
-                    <img class="dash__directory-folder-icon" 
-                        src=<%= (curr_item.isFolder) ? "../images/folder.png" : "../images/file.png" %>
-                        alt="folder icon">
-                    <p class="dash__directory-list-label"><%= curr_item.name %> </p>
-                </div>
-                <div class="dash__directory-list-label-container">
-                    <p class="dash__directory-list-label">
-                        <%= (curr_item.isFolder) ? "" : "null" %>
-                    </p>
-                </div>
-                <div class="dash__directory-list-label-container">
-                    <p class="dash__directory-list-label">2/14/2021 12:38 pm</p>
-                </div>
+<% 
+    function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+%> 
+
+<% if(items){ %>
+    <% for(let i=0; i<items.length; i++){ %>
+        <% let curr_item = items[i]; %> 
+        <div class="dash__directory-list-item"
+            id="<%= curr_item._id %>">
+            <input class="dash__directory-select hidden" type="checkbox">
+            <div
+                class="dash__directory-list-label-container dash__directory-list-label-container--name">
+                <img class="dash__directory-folder-icon" 
+                    src=<%= (curr_item.isFolder) ? "../images/folder.png" : "../images/file.png" %>
+                    alt="folder icon">
+                <p class="dash__directory-list-label"><%= curr_item.name %> </p>
             </div>
-        <% } %>
-    <% } else { %>
-        <p>No files to display</p>
-    <% } %> 
+            <div class="dash__directory-list-label-container">
+                <p class="dash__directory-list-label">
+                    <%= (curr_item.isFolder) ? "" : formatBytes(curr_item.size) %>
+                </p>
+            </div>
+            <div class="dash__directory-list-label-container">
+                <p class="dash__directory-list-label"><%= `${new Intl.DateTimeFormat().format(curr_item.date)}` %> </p>
+            </div>
+        </div>
+    <% } %>
+<% } else { %>
+    <p>No files to display</p>
+<% } %> 

@@ -64,7 +64,8 @@ router.post("/upload/:folderId",
     (req, res) => {
         const userId = req.user._id;
         const folderId = req.params.folderId;
-        const newFiles = []
+        const promises = []
+        console.log("Something")
         req.files.forEach(file => {
             const newNode = new TreeNode({
                 isFolder: false,
@@ -72,16 +73,25 @@ router.post("/upload/:folderId",
                 name: file.originalname,
                 fileId: file.id,
                 parent: folderId,
+                size: file.size,
+                date: file.uploadDate,
             });
+            console.log(file.originalname);
+            promises.push(newNode.save());
 
-            newFiles.push(newNode.save());
+            console.log(`{ _id: ${folderId} } child: { _id: ${newNode._id} }`)
 
-            TreeNode.updateOne(
-                { _id: folderId },
-                { $addToSet: { children: newNode._id } }
-            );
+            promises.push(
+                TreeNode.update(
+                    { _id: folderId },
+                    { $addToSet: { children: newNode._id } }
+                ).exec()
+            )
+
         })
-        Promise.all(newFiles).then(() => {
+
+        // Wait till all executed
+        Promise.all(promises).then(() => {
             TreeNode.find(
                 { owner: userId, parent: folderId })
                 .collation({ locale: "en" })
@@ -97,7 +107,6 @@ router.post("/upload/:folderId",
                             userName: req.user.userName,
                             parent: req.params.folderId
                         })
-                        console.log(items);
                     }
                 })
         });
@@ -125,6 +134,7 @@ router.post("/newFolder/:parentId", ensureAuthenticated, (req, res) => {
         owner: userId,
         name: name,
         parent: parentId,
+        date: Date.now(),
     });
     newFolder.save().then(
         () => {
