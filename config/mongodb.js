@@ -4,7 +4,7 @@ const Grid = require('gridfs-stream');
 const { MongoURI } = require("./keys");
 
 mongoose.connect(MongoURI,
-    { useNewUrlParser: true, useUnifiedTopology: true })
+    { useNewUrlParser: true, useUnifiedTopology: true, dbName: "users" })
     .catch((err) => console.log(err));
 
 const db = mongoose.connection;

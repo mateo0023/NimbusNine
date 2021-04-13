@@ -1,13 +1,13 @@
-<div class="dash__directory-list">
     <% if(items){ %>
         <% for(let i=0; i<items.length; i++){ %>
             <% let curr_item = items[i]; %> 
-            <div class="dash__directory-list-item" name="<%= curr_item._id %> ">
+            <div class="dash__directory-list-item"
+                id="<%= curr_item._id %>">
                 <input class="dash__directory-select hidden" type="checkbox">
                 <div
                     class="dash__directory-list-label-container dash__directory-list-label-container--name">
                     <img class="dash__directory-folder-icon" 
-                        src=<%= (curr_item.isFolder) ? "../images/folder.png" : "../images/folder copy.png" %>
+                        src=<%= (curr_item.isFolder) ? "../images/folder.png" : "../images/file.png" %>
                         alt="folder icon">
                     <p class="dash__directory-list-label"><%= curr_item.name %> </p>
                 </div>
@@ -24,5 +24,3 @@
     <% } else { %>
         <p>No files to display</p>
     <% } %> 
-
-</div>

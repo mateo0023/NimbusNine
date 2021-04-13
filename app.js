@@ -46,7 +46,7 @@ app.use("/", indexRoutes);
 app.use("/users", userRoutes);
 
 // File Upload-Download operations
-app.use("/files", require('./routes/files')());
+app.use("/", require('./routes/files'));
 
 app.listen(3000, () => {
   console.log("Server is up and running");

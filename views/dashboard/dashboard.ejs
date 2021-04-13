@@ -1,9 +1,21 @@
-<%- include('../partials/head', {scripts: [
-    {
-        url: "https://unpkg.com/axios/dist/axios.min.js",
-        defer: ""
-    }
-    ]}) %>
+<%- include('../partials/head', {
+    scripts: [
+        {
+            url: "https://unpkg.com/axios/dist/axios.min.js",
+            defer: ""
+        },
+        {
+            url: "/js/dashboard.js",
+            defer: "defer"
+        }
+    ],
+    meta: [
+        {
+            name: "host-folder-id",
+            content: parent,
+        }
+    ]
+    }) %>
 
     <div class="linear-gradient-background">
         <div class="dash">
@@ -15,7 +27,7 @@
                     <h2 class="dash__nav-title">NimbusDashboard</h2>
                     <nav class="dash__nav">
                         <a href="#" class="dash__nav-link">Shared files</a>
-                        <a href="#" class="dash__nav-link">My files</a>
+                        <a href="/dashboard" class="dash__nav-link">My files</a>
                     </nav>
                 </div>
                 <div class="dash__directory">
@@ -30,7 +42,7 @@
                                 <div class="user-icon">
                                 </div>
                             </button>
-                            <div class="drop-down drop-down-user">
+                            <div class="drop-down drop-down-user" style="display: none;">
                                 <a class="drop-down-item" href="#">Profile</a>
                                 <a class="drop-down-item" href="/users/logout">Log out</a>
                             </div>
@@ -40,9 +52,10 @@
                         <div class="drop-down-container">
                             <button class="btn btn--white btn--small drop-down-btn drop-down-btn--new">New
                                 &#43;</button>
-                            <div class="drop-down drop-down-new">
-                                <a class="drop-down-item" href="#">New file</a>
-                                <a class="drop-down-item" href="#">New folder</a>
+                            <div class="drop-down drop-down-new" style="display: none;">
+                                <a class="drop-down-item" href="" id="upload-file-btn">Upload file</a>
+                                <input id="file-input" type="file" name="file" style="display: none;" multiple/>
+                                <a class="drop-down-item" href="" id="new-folder-btn">New folder</a>
                             </div>
                         </div>
                         <div class="dash__directory-list-item dash__directory-list-item--title">
@@ -59,8 +72,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <%- include('../partials/item_list', {items: items}); %>
+                    <div class="dash__directory-list">
+                        <%- include('../partials/item_list', {items: items, parent: parent}); %>
+                    </div>
                 </div>
             </div>
         </div>

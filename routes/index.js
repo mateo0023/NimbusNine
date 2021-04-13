@@ -3,7 +3,7 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const mongoose = require("mongoose");
 
-const { db } = require("../config/mongodb")
+const TreeNode = require("../models/FileSys");
 
 // Home page
 router.get("/", (req, res) => {
@@ -13,28 +13,41 @@ router.get("/", (req, res) => {
 
 // Dashboard view
 router.get('/dashboard', ensureAuthenticated, (req, res) => {
-  db.collection("treenodes").find({ owner: req.user._id, name: '~' })
-    .sort({ isFolder: 1, name: 1, _id: 1 })
-    .toArray((err, items) => {
-      if (err) {
-        res.json({
-          "error": err,
-        });
-      }
-
-      if (!items || items.length === 0) {
+  let rootId;
+  TreeNode.findOne(
+    { "owner": req.user._id, "name": '~' },
+    (err, root) => {
+      rootId = root._id;
+      if (root.children.length === 0) {
         res.render('dashboard/dashboard', {
           items: false,
           userName: req.user.userName,
+          parent: rootId,
         });
       } else {
-        res.render('dashboard/dashboard', {
-          items: items,
-          userName: req.user.userName,
-        });
+        TreeNode.find(
+          { owner: req.user._id, parent: rootId })
+          .collation({locale: "en" })
+          .sort({isFolder: -1, name: 1, _id: 1})
+          .exec((err, items) => {
+            if (err) {
+              res.json({
+                "error": err,
+              });
+            }
+
+            if (!items || items.length === 0) {
+            } else {
+              res.render('dashboard/dashboard', {
+                items: items,
+                userName: req.user.userName,
+                parent: rootId
+              });
+            }
+          })
       }
-      
-    })
+    });
+
 })
 
 module.exports = router;
