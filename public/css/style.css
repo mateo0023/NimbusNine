@@ -299,8 +299,7 @@ body {
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%); }
-  .drop-down-item:link, .drop-down-item:visited {
-    display: block;
+  .drop-down-item {
     padding: 1rem;
     color: #000;
     background-color: none;
@@ -311,10 +310,10 @@ body {
     -moz-transition: all 0.2s;
     -ms-transition: all 0.2s;
     -o-transition: all 0.2s; }
-  .drop-down-item:focus {
-    outline: none; }
-  .drop-down-item:not(:last-child) {
-    display: block; }
+    .drop-down-item:focus {
+      outline: none; }
+    .drop-down-item:not(:last-child) {
+      display: block; }
 
 .drop-down-btn {
   background-color: transparent;

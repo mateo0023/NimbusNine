@@ -25,23 +25,17 @@
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
 
-
-
   &-item {
-    &:link,
-    &:visited {
-      display: block;
-      padding: 1rem;
-      color: $black;
-      background-color: none;
-      border: none;
-      text-decoration: none;
-      transition: all 0.2s;
-      -webkit-transition: all 0.2s;
-      -moz-transition: all 0.2s;
-      -ms-transition: all 0.2s;
-      -o-transition: all 0.2s;
-    }
+    padding: 1rem;
+    color: $black;
+    background-color: none;
+    border: none;
+    text-decoration: none;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
 
     &:focus {
       outline: none;
