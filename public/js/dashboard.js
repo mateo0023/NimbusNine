@@ -16,7 +16,7 @@
     };
 
     uploadFileSelector.onchange = (e) => {
-        const fileList = this.files;
+        const fileList = uploadFileSelector.files;
         var formData = new FormData();
         for (let i = 0; i < fileList.length; i++) {
             formData.append("file", fileList[i]);
