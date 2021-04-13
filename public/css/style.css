@@ -303,15 +303,16 @@ body {
     display: block;
     padding: 1rem;
     color: #000;
+    background-color: none;
+    border: none;
     text-decoration: none;
     transition: all 0.2s;
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
     -ms-transition: all 0.2s;
     -o-transition: all 0.2s; }
-  .drop-down-item:hover {
-    color: #1B9CFC;
-    background-color: #fff; }
+  .drop-down-item:focus {
+    outline: none; }
   .drop-down-item:not(:last-child) {
     display: block; }
 

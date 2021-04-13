@@ -33,6 +33,8 @@
       display: block;
       padding: 1rem;
       color: $black;
+      background-color: none;
+      border: none;
       text-decoration: none;
       transition: all 0.2s;
       -webkit-transition: all 0.2s;
@@ -41,10 +43,10 @@
       -o-transition: all 0.2s;
     }
 
-    &:hover {
-      color: $blue;
-      background-color: $white;
+    &:focus {
+      outline: none;
     }
+
     &:not(:last-child) {
       display: block;
     }
