@@ -3,13 +3,17 @@
     const uploadFileButton = document.querySelector("#upload-file-btn");
     const uploadFileSelector = document.querySelector("#file-input");
 
+    const itemsList = document.querySelector(".dash__directory-list")
     const parentId = document.getElementsByName("host-folder-id")[0].content;
 
-    document.querySelectorAll(".dash__directory-list-item").forEach(item => {
-        item.onclick = () => {
-            window.location.replace(`${window.location.origin}/view/${item.id}`)
-        };
-    })
+    function addClickLink() {
+        document.querySelectorAll(".dash__directory-list-item").forEach(item => {
+            item.onclick = () => {
+                window.location.replace(`${window.location.origin}/view/${item.id}`)
+            };
+        })
+    }
+    addClickLink();
 
     uploadFileButton.onclick = (e) => {
         uploadFileSelector.click();
@@ -29,6 +33,7 @@
             }
         }).then(response => {
             document.querySelector(".dash__directory-list").innerHTML = response.data;
+            addClickLink();
         }).catch((err) => {
             console.log(err);
         });
@@ -44,8 +49,7 @@
                     name: name
                 }
             }).then(response => {
-                console.log(response)
-                window.location.replace(response.request.res.responseURL);
+                window.location.replace(`${window.location.origin}/view/${response.data}`)
             }).catch(err => {
                 console.log(err);
             });

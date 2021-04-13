@@ -59,15 +59,12 @@ function removeItem(elemId) {
 
 // Upload file to folderId
 router.post("/upload/:folderId",
-    (a, b, n) => {
-        console.log("Asking to upload a file");
-        n();
-    },
     ensureAuthenticated,
     upload.array('file'),
     (req, res) => {
         const userId = req.user._id;
         const folderId = req.params.folderId;
+        const newFiles = []
         req.files.forEach(file => {
             const newNode = new TreeNode({
                 isFolder: false,
@@ -76,35 +73,38 @@ router.post("/upload/:folderId",
                 fileId: file.id,
                 parent: folderId,
             });
-            newNode.save();
 
-            TreeNode.update(
+            newFiles.push(newNode.save());
+
+            TreeNode.updateOne(
                 { _id: folderId },
                 { $addToSet: { children: newNode._id } }
             );
         })
-        TreeNode.find(
-            { owner: userId, parent: folderId })
-            .collation({ locale: "en" })
-            .sort({ isFolder: -1, name: 1, _id: 1 })
-            .exec((err, items) => {
-                if (err) {
-                    res.json({
-                        "error": err,
-                    });
-                } else {
-                    res.render("partials/item_list", {
-                        items: items,
-                        userName: req.user.userName,
-                        parent: req.params.folderId
-                    });
-                }
-            })
+        Promise.all(newFiles).then(() => {
+            TreeNode.find(
+                { owner: userId, parent: folderId })
+                .collation({ locale: "en" })
+                .sort({ isFolder: -1, name: 1, _id: 1 })
+                .exec((err, items) => {
+                    if (err) {
+                        res.json({
+                            "error": err,
+                        });
+                    } else {
+                        res.render("partials/item_list", {
+                            items: items,
+                            userName: req.user.userName,
+                            parent: req.params.folderId
+                        })
+                        console.log(items);
+                    }
+                })
+        });
     }
 );
 
 router.post("/newFolder/:parentId", ensureAuthenticated, (req, res) => {
-    console.log("New folder")
     const userId = req.user._id;
     const { name } = req.body;
     const parentId = req.params.parentId;
@@ -126,13 +126,16 @@ router.post("/newFolder/:parentId", ensureAuthenticated, (req, res) => {
         name: name,
         parent: parentId,
     });
-    newFolder.save();
-    // Add the new child to its parent
-    TreeNode.findOneAndUpdate(
-        { _id: parentId },
-        { $addToSet: { children: newFolder._id } }
-    );
-    res.redirect(`/${newFolder._id}`);
+    newFolder.save().then(
+        () => {
+            // Add the new child to its parent
+            TreeNode.findOneAndUpdate(
+                { _id: parentId },
+                { $addToSet: { children: newFolder._id } }
+            );
+            res.send(newFolder._id);
+        }
+    )
 })
 
 router.delete("/remove/:itemId",
