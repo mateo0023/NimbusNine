@@ -18,6 +18,7 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => {
     { "owner": req.user._id, "name": '~' },
     (err, root) => {
       rootId = root._id;
+      console.log(root.children)
       if (root.children.length === 0) {
         res.render('dashboard/dashboard', {
           items: false,
@@ -27,23 +28,20 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => {
       } else {
         TreeNode.find(
           { owner: req.user._id, parent: rootId })
-          .collation({locale: "en" })
-          .sort({isFolder: -1, name: 1, _id: 1})
+          .collation({ locale: "en" })
+          .sort({ isFolder: -1, name: 1, _id: 1 })
           .exec((err, items) => {
-            if (err) {
-              res.json({
-                "error": err,
-              });
-            }
-
-            if (!items || items.length === 0) {
-            } else {
-              res.render('dashboard/dashboard', {
-                items: items,
-                userName: req.user.userName,
-                parent: rootId
-              });
-            }
+              if (err) {
+                  res.json({
+                      "error": err,
+                  });
+              } else {
+                  res.render("dashboard/dashboard", {
+                      items: items,
+                      userName: req.user.userName,
+                      parent: req.params.folderId
+                  })
+              }
           })
       }
     });
