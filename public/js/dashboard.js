@@ -32,7 +32,7 @@
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => {
-            document.querySelector(".dash__directory-list").innerHTML = response.data;
+            itemsList.innerHTML = response.data;
             addClickLink();
         }).catch((err) => {
             console.log(err);
@@ -40,7 +40,9 @@
     };
 
     newFolderButton.onclick = () => {
-        let name = prompt("Enter the folder's name")
+        // This prompt is far from ideal.
+        // would need to create nice HTML/JS code for it
+        let name = prompt("Enter the folder's name");
         if (name !== null) {
             axios({
                 method: 'post',
@@ -49,6 +51,7 @@
                     name: name
                 }
             }).then(response => {
+                // Will receive the folder ID to go to
                 window.location.replace(`${window.location.origin}/view/${response.data}`)
             }).catch(err => {
                 console.log(err);
