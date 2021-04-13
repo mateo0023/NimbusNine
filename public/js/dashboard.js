@@ -42,7 +42,7 @@
     newFolderButton.onclick = () => {
         // This prompt is far from ideal.
         // would need to create nice HTML/JS code for it
-        let name = prompt("Enter the folder's name");
+        let name = window.prompt("Enter the folder's name");
         if (name !== null) {
             axios({
                 method: 'post',
@@ -52,7 +52,7 @@
                 }
             }).then(response => {
                 // Will receive the folder ID to go to
-                window.location.replace(`${window.location.origin}/view/${response.data}`)
+                location.reload();
             }).catch(err => {
                 console.log(err);
             });
