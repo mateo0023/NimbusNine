@@ -32,7 +32,15 @@
                 </div>
                 <div class="dash__directory">
                     <div class="dash__directory-top">
-                        <h1 class="dash__directory-title">My files</h1>
+                        <% if( typeof parentName !== "undefined") { %> 
+                            <a href="/view/<%= parentId %>" style="text-decoration: none; color: inherit;">
+                                <h1 class="dash__directory-title"><%= parentName %> </h1>
+                            </a>
+                        <% } else { %> 
+                            <a href="/dashboard" style="text-decoration: none; color: inherit;">
+                                <h1 class="dash__directory-title">My files</h1>
+                            </a>
+                        <% } %> 
                         <form action="#" class="search">
                             <input class="search__input" type="text" placeholder="Search">
                             <button class="search__btn"><i class="fas fa-search"></i></button>

@@ -178,31 +178,42 @@ router.get("/view/:folderId",
             if (!result.isFolder) {
                 // Redirect if it's a file
                 res.redirect(`/view/${result.parent}/${result._id}`)
+            } else if (result.name === "~"){
+                res.redirect("/dashboard");
             } else {
                 TreeNode.find(
                     { owner: req.user._id, parent: req.params.folderId })
                     .collation({ locale: "en" })
                     .sort({ isFolder: -1, name: 1, _id: 1 })
                     .exec((err, items) => {
-                        if (err) {
-                            res.json({
-                                "error": err,
-                            });
-                        }
+                        TreeNode.findById(req.params.folderId,
+                            (err, parentFolder) => {
 
-                        if (!items || items.length === 0) {
-                            res.render('dashboard/dashboard', {
-                                items: false,
-                                userName: req.user.userName,
-                                parent: req.params.folderId,
-                            });
-                        } else {
-                            res.render('dashboard/dashboard', {
-                                items: items,
-                                userName: req.user.userName,
-                                parent: req.params.folderId
-                            });
-                        }
+                                if (err) {
+                                    res.json({
+                                        "error": err,
+                                    });
+                                }
+
+                                if (!items || items.length === 0) {
+                                    res.render('dashboard/dashboard', {
+                                        items: false,
+                                        userName: req.user.userName,
+                                        parent: req.params.folderId,
+                                        parentName: parentFolder.name,
+                                        parentId: parentFolder.parent,
+                                    });
+                                } else {
+                                    res.render('dashboard/dashboard', {
+                                        items: items,
+                                        userName: req.user.userName,
+                                        parent: req.params.folderId,
+                                        parentName: parentFolder.name,
+                                        parentId: parentFolder.parent,
+                                    });
+                                }
+                            }
+                        )
                     })
             }
         });
