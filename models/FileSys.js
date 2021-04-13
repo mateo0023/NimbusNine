@@ -18,6 +18,11 @@ const TreeNodeSchema = new mongoose.Schema({
         required: true,
         default: [],
     },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now(),
+    },
     parent: {
         type: String,
         required: false,
@@ -30,6 +35,10 @@ const TreeNodeSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    size: {
+        type: Number,
+        required: false,
+    }
 });
 
 const TreeNode = mongoose.model('TreeNode', TreeNodeSchema);
