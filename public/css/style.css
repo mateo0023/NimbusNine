@@ -301,8 +301,9 @@ body {
   -o-transform: translateX(-50%); }
   .drop-down-item {
     padding: 1rem;
+    display: block;
     color: #000;
-    background-color: none;
+    background-color: white;
     border: none;
     text-decoration: none;
     transition: all 0.2s;
@@ -310,6 +311,8 @@ body {
     -moz-transition: all 0.2s;
     -ms-transition: all 0.2s;
     -o-transition: all 0.2s; }
+    .drop-down-item:hover {
+      color: #1B9CFC; }
     .drop-down-item:focus {
       outline: none; }
     .drop-down-item:not(:last-child) {
