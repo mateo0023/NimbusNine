@@ -6,6 +6,9 @@ const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require('gridfs-stream');
 
+// To deal with deprecation warning from findByIdAndDelete()
+mongoose.set('useFindAndModify', false);
+
 const { MongoURI } = require("../config/keys");
 
 mongoose.connect(MongoURI,
